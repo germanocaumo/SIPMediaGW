@@ -8,7 +8,7 @@ services:
     volumes:
       - ./kamailio/kamailio_db:/usr/local/etc/kamailio
     logging:
-      driver: syslog
+      #driver: syslog
       options:
         tag: "kamailio"
     env_file:
@@ -27,7 +27,7 @@ services:
     container_name: coturn
     network_mode: host
     logging:
-      driver: syslog
+      #driver: syslog
       options:
         tag: "coturn"
     env_file:

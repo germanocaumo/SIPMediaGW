@@ -1,12 +1,12 @@
-networks:
-  default:
-    name: gw_net
-
 services:
   gw:
-    image: "${DOCKER_IMAGE}"
+    #image: "${DOCKER_IMAGE}"
+    image: sipmediagw2
+    build:
+      context: .
     restart: ${RESTART}
     container_name: gw${ID}
+    network_mode: host
     tmpfs:
       - /tmp
     volumes:
@@ -16,7 +16,7 @@ services:
       - /dev/snd:/dev/snd
     shm_size: '2gb'
     logging:
-      driver: syslog
+      #driver: syslog
       options:
         tag: "{{.ImageName}}/{{.Name}}"
     env_file:

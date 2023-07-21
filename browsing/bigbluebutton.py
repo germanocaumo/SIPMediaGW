@@ -42,27 +42,33 @@ def tryClick(driver, selector, attempts=5, timeout=20):
 class BigBlueButton (Browsing):
 
     def setUrl(self):
-        self.url = 'https://{}/{}/join'.format(bbbFQDN, self.room)
+        self.url = 'https://dev26.bigbluebutton.org/bigbluebutton/api/join?fullName=User+6629883&meetingID=random-6515176&password=mp&redirect=true&checksum=e966e734c95e7675cb7526b2f02d07a7b27fadbc'
         print("Web browsing URL: "+self.url, flush=True)
 
     def browse(self, driver):
         # Enter name
-        try:
-            element = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#joinFormName')))
-            element.send_keys(self.name)
-            element.submit()
-        except Exception as e:
-            print("Name submit failed", flush=True)
+        #try:
+        #    element = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#joinFormName')))
+        #    element.send_keys(self.name)
+        #    element.submit()
+        #except Exception as e:
+        #    print("Name submit failed", flush=True)
 
         # Activate microphone
         try:
-            tryClick(driver, "[aria-label=Microphone]", 5, 20)
+            tryClick(driver, "[data-test=microphoneBtn]", 5, 20)
+
+            print("Cliquei no microfone ", flush=True)
 
             test=WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "option[value='default']")))
 
-            tryClick(driver, "[data-test=joinEchoTestButton]", 5, 20)
+            print("Default", flush=True)
+
+            tryClick(driver, "[data-test=joinEchoTestButton]", 5, 40)
+
+            print("EchoTest", flush=True)
         except Exception as e:
-            print("Microphone activation failed", flush=True)
+            print("Microphone activation failed "+e, flush=True)
 
         # Activate camera
         try:
